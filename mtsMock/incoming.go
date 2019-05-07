@@ -18,7 +18,7 @@ func (m *mtsMock) ProcessGetMessages(request *mtsWsdl.GetMessages) (*mtsWsdl.Get
 		return nil, errors.New("incorrect SubscriberMsids")
 	}
 
-	incomingMessages, err := m.store.GetIncomingMessages(request.DateFrom, request.DateTo)
+	incomingMessages, err := m.store.GetIncomingMessages(request.DateFrom.Time, request.DateTo.Time)
 	if err != nil {
 		return nil, errors.New("database error")
 	}
@@ -29,7 +29,7 @@ func (m *mtsMock) ProcessGetMessages(request *mtsWsdl.GetMessages) (*mtsWsdl.Get
 			MessageID:    v.Id,
 			MessageText:  v.Text,
 			SenderMsid:   v.Phone,
-			CreationDate: v.Sent,
+			CreationDate: mtsWsdl.TimeWithoutZone{Time: v.Sent},
 		}
 	}
 

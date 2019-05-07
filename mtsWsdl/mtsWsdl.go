@@ -422,9 +422,9 @@ type GetMessages struct {
 
 	SubscriberMsids *ArrayOfString `xml:"subscriberMsids,omitempty"`
 
-	DateFrom time.Time `xml:"DateFrom,omitempty"`
+	DateFrom TimeWithoutZone `xml:"DateFrom,omitempty"`
 
-	DateTo time.Time `xml:"DateTo,omitempty"`
+	DateTo TimeWithoutZone `xml:"DateTo,omitempty"`
 
 	Login string `xml:"login,omitempty"`
 
@@ -872,7 +872,7 @@ type ArrayOfMessageInfo struct {
 type MessageInfo struct {
 	MessageID int64 `xml:"MessageID,omitempty"`
 
-	CreationDate time.Time `xml:"CreationDate,omitempty"`
+	CreationDate TimeWithoutZone `xml:"CreationDate,omitempty"`
 
 	SenderMsid string `xml:"SenderMsid,omitempty"`
 
