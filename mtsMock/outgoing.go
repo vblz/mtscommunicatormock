@@ -36,6 +36,13 @@ func (m *mtsMock) ProcessGetMessagesStatus(request *mtsWsdl.GetMessagesStatus) (
 		delivery := mtsWsdl.ArrayOfDeliveryInfo{DeliveryInfo: deliverInfo}
 		messages[i] = &mtsWsdl.MessageStatusWithID{MessageID: id, Delivery: &delivery}
 	}
+
+	// mts sorts new at top
+	for i := len(messages)/2 - 1; i >= 0; i-- {
+		opp := len(messages) - 1 - i
+		messages[i], messages[opp] = messages[opp], messages[i]
+	}
+
 	result := mtsWsdl.ArrayOfMessageStatusWithID{MessageStatusWithID: messages[:]}
 
 	return &mtsWsdl.GetMessagesStatusResponse{GetMessagesStatusResult: &result}, nil
