@@ -1,0 +1,6 @@
+# github.com/go-pkgz/lgr v0.6.2
+github.com/go-pkgz/lgr
+# github.com/hooklift/gowsdl v0.3.1
+github.com/hooklift/gowsdl/soap
+# github.com/jessevdk/go-flags v1.4.0
+github.com/jessevdk/go-flags
