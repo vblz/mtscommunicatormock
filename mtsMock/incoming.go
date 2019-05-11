@@ -33,6 +33,12 @@ func (m *mtsMock) ProcessGetMessages(request *mtsWsdl.GetMessages) (*mtsWsdl.Get
 		}
 	}
 
+	// mts sorts new at top
+	for i := len(messages)/2 - 1; i >= 0; i-- {
+		opp := len(messages) - 1 - i
+		messages[i], messages[opp] = messages[opp], messages[i]
+	}
+
 	result := mtsWsdl.ArrayOfMessageInfo{MessageInfo: messages}
 
 	return &mtsWsdl.GetMessagesResponse{GetMessagesResult: &result}, nil
