@@ -32,7 +32,7 @@ func (s *handler) SoapHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	soapAction := r.Header.Get(headerSoapaction)
-	if soapAction[0] == '"' && soapAction[len(soapAction)-1] == '"' {
+	if len(soapAction) > 2 && soapAction[0] == '"' && soapAction[len(soapAction)-1] == '"' {
 		soapAction = soapAction[1 : len(soapAction)-1]
 	}
 
@@ -53,7 +53,9 @@ func (s *handler) SoapHandler(w http.ResponseWriter, r *http.Request) {
 		process = func(r interface{}) (interface{}, error) { return s.mts.ProcessGetMessages(r.(*mtsWsdl.GetMessages)) }
 	case "GetMessagesStatus":
 		request = new(mtsWsdl.GetMessagesStatus)
-		process = func(r interface{}) (interface{}, error) { return s.mts.ProcessGetMessagesStatus(r.(*mtsWsdl.GetMessagesStatus)) }
+		process = func(r interface{}) (interface{}, error) {
+			return s.mts.ProcessGetMessagesStatus(r.(*mtsWsdl.GetMessagesStatus))
+		}
 	default:
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
