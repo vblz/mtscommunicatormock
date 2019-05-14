@@ -13,6 +13,8 @@ const listLocation = "static/list.html"
 var sendTemplate = template.Must(template.ParseFiles(sendLocation))
 var listTemplate = template.Must(template.ParseFiles(listLocation))
 
+const tempDefaultLimit = 100
+
 func (s *handler) SendHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		err := sendTemplate.Execute(w, nil)
@@ -70,7 +72,7 @@ func (s *handler) ListHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	searchParams := store.SearchRequest{Limit:10}
+	searchParams := store.SearchRequest{Limit: tempDefaultLimit}
 
 	messages, err := s.store.GetOutgoingMessages(searchParams)
 	if err != nil {
